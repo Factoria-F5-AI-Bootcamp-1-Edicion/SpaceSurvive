@@ -19,6 +19,7 @@ class Player:
 
         self.nivel = 0
         self.experiencia = 0
+        self.criterio_subida_nivel = 10
 
     def speak(self):
         print(f"Hola, me llamo {self.name}")
@@ -67,6 +68,19 @@ class Player:
         else:
             print("Ese tipo de daño no está contemplado")
 
+    def gain_exp(self, exp):
+        self.experiencia += exp
+        if self.experiencia >= self.criterio_subida_nivel:
+            self.lvl_up()
+
+    def lvl_up(self):
+        """
+        Esta clase aumenta el nivel de nuestro personaje y además actualiza el criterio para el siguiente nivel
+        :return:
+        """
+        #TODO: Aquí implementamos una escalada de nivel donde el requisito de experiencia escala según la secuencia de fibonacci
+        pass
+
     def check_all(self):
         self.speak()
         self.check_nivel()
@@ -75,11 +89,6 @@ class Player:
         self.check_sobrevive()
         self.daño(1)
         self.check_sobrevive()
-
-    def quejarse(self):
-        print("Uy que mal")
-
-
 
 
 print("Bienvenido a la Alfa de SpaceSurvive!!")
