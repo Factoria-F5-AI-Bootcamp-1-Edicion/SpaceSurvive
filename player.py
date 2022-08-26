@@ -55,10 +55,29 @@ class Player:
         else:
             print(f"Aún te quedan {self.vida} puntos de vida, sigue aguantando")
 
-    def daño(self, daño):
-        print(f"{self.name} ha recibido {daño} puntos de daño")
-        self.vida -= daño
+    def daño(self, daño, tipo):
+        print(f"{self.name} ha recibido {daño} puntos de daño {tipo}")
 
+        if tipo == "fisico":
+            self.vida -= daño - self.armadura
+        elif tipo == "energía":
+            self.vida -= daño - self.escudo
+        elif tipo == "psíquico":
+            self.vida -= daño - self.voluntad
+        else:
+            print("Ese tipo de daño no está contemplado")
+
+    def check_all(self):
+        self.speak()
+        self.check_nivel()
+        self.check_vida()
+        self.check_inventario()
+        self.check_sobrevive()
+        self.daño(1)
+        self.check_sobrevive()
+
+    def quejarse(self):
+        print("Uy que mal")
 
 
 
@@ -70,11 +89,6 @@ name = input("Introduzca su nombre de jugador: ")
 
 jugador = Player(name)
 
-jugador.speak()
-jugador.check_nivel()
-jugador.check_vida()
-jugador.check_inventario()
-print()
-jugador.check_sobrevive()
-jugador.daño(1)
-jugador.check_sobrevive()
+jugador.check_all()
+
+jugador.daño(2)
