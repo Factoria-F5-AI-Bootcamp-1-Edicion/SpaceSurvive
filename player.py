@@ -12,6 +12,8 @@ class Player:
         self.escudo = 0
         self.voluntad = 0
 
+        self.daño_ataque = 1
+
         self.inventario = {
             "Objeto_1": 0,
             "Objeto_2": 4
@@ -19,6 +21,9 @@ class Player:
 
         self.nivel = 0
         self.experiencia = 0
+
+        self.hold = 0
+        self.anterior_criterio_subida = 10
         self.criterio_subida_nivel = 10
 
     def speak(self):
@@ -51,7 +56,7 @@ class Player:
                 print(f"Tengo del objeto {objeto}, {cantidad} unidades")
 
     def check_sobrevive(self):
-        if self.vida == 0:
+        if self.vida <= 0:
             print(f"Game Over, {self.name} ha sido derrotado")
         else:
             print(f"Aún te quedan {self.vida} puntos de vida, sigue aguantando")
@@ -78,8 +83,11 @@ class Player:
         Esta clase aumenta el nivel de nuestro personaje y además actualiza el criterio para el siguiente nivel
         :return:
         """
-        #TODO: Aquí implementamos una escalada de nivel donde el requisito de experiencia escala según la secuencia de fibonacci
-        pass
+        self.nivel += 1
+
+        self.hold = self.criterio_subida_nivel
+        self.criterio_subida_nivel = self.criterio_subida_nivel + self.anterior_criterio_subida
+        self.anterior_criterio_subida = self.hold
 
     def check_all(self):
         self.speak()
@@ -87,17 +95,32 @@ class Player:
         self.check_vida()
         self.check_inventario()
         self.check_sobrevive()
-        self.daño(1)
+        self.daño(1, "fisico")
         self.check_sobrevive()
 
+    def atacar(self):
+        return self.daño_ataque
 
-print("Bienvenido a la Alfa de SpaceSurvive!!")
-print()
 
-name = input("Introduzca su nombre de jugador: ")
+#print("Bienvenido a la Alfa de SpaceSurvive!!")
+#print()
 
-jugador = Player(name)
+#name = input("Introduzca su nombre de jugador: ")
 
-jugador.check_all()
+jugador = Player("Prueba")
 
-jugador.daño(2)
+print(f"Nivel del jugador: {jugador.nivel}, experiencia: {jugador.experiencia}, para siguiente nivel: {jugador.criterio_subida_nivel}")
+jugador.gain_exp(5)
+print(f"Nivel del jugador: {jugador.nivel}, experiencia: {jugador.experiencia}, para siguiente nivel: {jugador.criterio_subida_nivel}")
+jugador.gain_exp(5)
+print(f"Nivel del jugador: {jugador.nivel}, experiencia: {jugador.experiencia}, para siguiente nivel: {jugador.criterio_subida_nivel}")
+jugador.gain_exp(10)
+print(f"Nivel del jugador: {jugador.nivel}, experiencia: {jugador.experiencia}, para siguiente nivel: {jugador.criterio_subida_nivel}")
+jugador.gain_exp(10)
+print(f"Nivel del jugador: {jugador.nivel}, experiencia: {jugador.experiencia}, para siguiente nivel: {jugador.criterio_subida_nivel}")
+jugador.gain_exp(10)
+print(f"Nivel del jugador: {jugador.nivel}, experiencia: {jugador.experiencia}, para siguiente nivel: {jugador.criterio_subida_nivel}")
+jugador.gain_exp(10)
+print(f"Nivel del jugador: {jugador.nivel}, experiencia: {jugador.experiencia}, para siguiente nivel: {jugador.criterio_subida_nivel}")
+jugador.gain_exp(10)
+print(f"Nivel del jugador: {jugador.nivel}, experiencia: {jugador.experiencia}, para siguiente nivel: {jugador.criterio_subida_nivel}")
