@@ -1,23 +1,11 @@
-class Enemigo:
-    def __init__(self, nombre):
 
-        self.nombre = nombre
+from entity import Entidad
 
-        self.vida = 0
-        self.armadura = 0
-        self.daño_ataque = 1
-
+class Enemigo(Entidad):
+    def __init__(self, name):
+        super().__init__(name)
         self.experiencia_morir = 1
 
 
-    def atacar(self):
-        pass
-
-    def defenderse(self):
-        pass
-
-    def huir(self):
-        pass
-
-    def morir(self):
-        pass
+enemigo = Enemigo("Aberración")
+enemigo.speak()

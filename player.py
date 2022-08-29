@@ -2,17 +2,12 @@
 #
 #
 
-class Player:
+from entity import Entidad
 
-    def __init__(self, name):
-        self.name = name
-        self.vida = 1
+class Player(Entidad):
 
-        self.armadura = 0
-        self.escudo = 0
-        self.voluntad = 0
-
-        self.daño_ataque = 1
+    def __init__(self, name, tipo):
+        super().__init__(name)
 
         self.inventario = {
             "Objeto_1": 0,
@@ -26,20 +21,6 @@ class Player:
         self.anterior_criterio_subida = 10
         self.criterio_subida_nivel = 10
 
-    def speak(self):
-        print(f"Hola, me llamo {self.name}")
-
-    def check_vida(self):
-        print(f"La vida actual es {self.vida}")
-
-    def check_armadura(self):
-        print(f"La armadura actual es {self.armadura}")
-
-    def check_escudo(self):
-        print(f"El escudo actual es {self.escudo}")
-
-    def check_voluntad(self):
-        print(f"La voluntad actual es {self.voluntad}")
 
     def check_nivel(self):
         print(f"El nivel actual es {self.nivel}")
@@ -55,23 +36,6 @@ class Player:
             for objeto, cantidad in self.inventario.items():
                 print(f"Tengo del objeto {objeto}, {cantidad} unidades")
 
-    def check_sobrevive(self):
-        if self.vida <= 0:
-            print(f"Game Over, {self.name} ha sido derrotado")
-        else:
-            print(f"Aún te quedan {self.vida} puntos de vida, sigue aguantando")
-
-    def daño(self, daño, tipo):
-        print(f"{self.name} ha recibido {daño} puntos de daño {tipo}")
-
-        if tipo == "fisico":
-            self.vida -= daño - self.armadura
-        elif tipo == "energía":
-            self.vida -= daño - self.escudo
-        elif tipo == "psíquico":
-            self.vida -= daño - self.voluntad
-        else:
-            print("Ese tipo de daño no está contemplado")
 
     def gain_exp(self, exp):
         self.experiencia += exp
@@ -89,17 +53,6 @@ class Player:
         self.criterio_subida_nivel = self.criterio_subida_nivel + self.anterior_criterio_subida
         self.anterior_criterio_subida = self.hold
 
-    def check_all(self):
-        self.speak()
-        self.check_nivel()
-        self.check_vida()
-        self.check_inventario()
-        self.check_sobrevive()
-        self.daño(1, "fisico")
-        self.check_sobrevive()
-
-    def atacar(self):
-        return self.daño_ataque
 
 
 #print("Bienvenido a la Alfa de SpaceSurvive!!")
@@ -109,18 +62,4 @@ class Player:
 
 jugador = Player("Prueba")
 
-print(f"Nivel del jugador: {jugador.nivel}, experiencia: {jugador.experiencia}, para siguiente nivel: {jugador.criterio_subida_nivel}")
-jugador.gain_exp(5)
-print(f"Nivel del jugador: {jugador.nivel}, experiencia: {jugador.experiencia}, para siguiente nivel: {jugador.criterio_subida_nivel}")
-jugador.gain_exp(5)
-print(f"Nivel del jugador: {jugador.nivel}, experiencia: {jugador.experiencia}, para siguiente nivel: {jugador.criterio_subida_nivel}")
-jugador.gain_exp(10)
-print(f"Nivel del jugador: {jugador.nivel}, experiencia: {jugador.experiencia}, para siguiente nivel: {jugador.criterio_subida_nivel}")
-jugador.gain_exp(10)
-print(f"Nivel del jugador: {jugador.nivel}, experiencia: {jugador.experiencia}, para siguiente nivel: {jugador.criterio_subida_nivel}")
-jugador.gain_exp(10)
-print(f"Nivel del jugador: {jugador.nivel}, experiencia: {jugador.experiencia}, para siguiente nivel: {jugador.criterio_subida_nivel}")
-jugador.gain_exp(10)
-print(f"Nivel del jugador: {jugador.nivel}, experiencia: {jugador.experiencia}, para siguiente nivel: {jugador.criterio_subida_nivel}")
-jugador.gain_exp(10)
-print(f"Nivel del jugador: {jugador.nivel}, experiencia: {jugador.experiencia}, para siguiente nivel: {jugador.criterio_subida_nivel}")
+jugador.speak()
